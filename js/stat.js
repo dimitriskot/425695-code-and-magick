@@ -1,25 +1,15 @@
 'use strict';
 
 window.renderStatistics = function (ctx, names, times) {
+  ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
+  ctx.shadowOffsetX = 10;
+  ctx.shadowOffsetY = 10;
   ctx.fillStyle = 'white';
-  ctx.beginPath();
-  ctx.bezierCurveTo(90, 40, 110, 10, 160, 20);
-  ctx.bezierCurveTo(160, 20, 190, 5, 220, 10);
-  ctx.bezierCurveTo(220, 10, 255, 0, 290, 7);
-  ctx.bezierCurveTo(290, 7, 305, 0, 350, 15);
-  ctx.bezierCurveTo(350, 15, 375, 0, 410, 15);
-  ctx.bezierCurveTo(410, 15, 440, 5, 470, 10);
-  ctx.bezierCurveTo(470, 10, 520, 10, 510, 70);
-  ctx.bezierCurveTo(510, 70, 540, 100, 515, 170);
-  ctx.bezierCurveTo(515, 170, 550, 190, 530, 250);
-  ctx.bezierCurveTo(530, 250, 620, 275, 400, 280);
-  ctx.bezierCurveTo(400, 280, 250, 300, 200, 282);
-  ctx.bezierCurveTo(200, 282, 10, 275, 70, 250);
-  ctx.bezierCurveTo(70, 250, 60, 190, 90, 170);
-  ctx.bezierCurveTo(90, 170, 65, 100, 95, 70);
-  ctx.bezierCurveTo(95, 70, 85, 60, 90, 40);
-  ctx.closePath();
-  ctx.fill();
+  ctx.strokeRect(100, 10, 420, 270);
+  ctx.fillRect(100, 10, 420, 270);
+
+  ctx.shadowOffsetX = 0;
+  ctx.shadowOffsetY = 0;
   ctx.fillStyle = 'black';
   ctx.font = '16px PT Mono';
   ctx.fillText('Ура вы победили!', 120, 40);
