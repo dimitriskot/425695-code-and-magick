@@ -6,6 +6,9 @@ userDialog.classList.remove('hidden');
 var similarListElement = document.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
+var wizards = [];
+var wizardsCount = 4;
+
 var wizardNames = [
   'Иван',
   'Хуан Себастьян',
@@ -56,8 +59,6 @@ var getWizard = function () {
   return wizard;
 };
 
-var wizards = [];
-
 var getWizards = function (count) {
   for (var i = 0; i < count; i++) {
     wizards[i] = getWizard();
@@ -65,7 +66,7 @@ var getWizards = function (count) {
   return wizards;
 };
 
-getWizards(4);
+getWizards(wizardsCount);
 
 var renderWizard = function (wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
