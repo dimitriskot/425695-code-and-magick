@@ -45,28 +45,29 @@ var eyesColors = [
   'green'
 ];
 
-var getWizardProperty = function (massive) {
-  var property = massive[Math.floor(Math.random() * massive.length)];
+var getRandomElement = function (array) {
+  var property = array[Math.floor(Math.random() * array.length)];
   return property;
 };
 
 var getWizard = function () {
   var wizard = {};
-  wizard.name = getWizardProperty(wizardNames);
-  wizard.surname = getWizardProperty(wizardSurnames);
-  wizard.coatColor = getWizardProperty(coatColors);
-  wizard.eyesColor = getWizardProperty(eyesColors);
+  wizard.name = getRandomElement(wizardNames);
+  wizard.surname = getRandomElement(wizardSurnames);
+  wizard.coatColor = getRandomElement(coatColors);
+  wizard.eyesColor = getRandomElement(eyesColors);
   return wizard;
 };
 
 var getWizards = function (count) {
+  var tempWizards = [];
   for (var i = 0; i < count; i++) {
-    wizards[i] = getWizard();
+    tempWizards[i] = getWizard();
   }
-  return wizards;
+  return tempWizards;
 };
 
-getWizards(wizardsCount);
+wizards = getWizards(wizardsCount);
 
 var renderWizard = function (wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
