@@ -12,7 +12,8 @@ var wizardEyes = wizardSetup.querySelector('.wizard-eyes');
 var wizardFireball = document.querySelector('.setup-fireball-wrap');
 
 var onPopupEscPress = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
+  var activeInput = document.activeElement;
+  if (evt.keyCode === ESC_KEYCODE && userNameInput !== activeInput)  {
     closePopup();
   }
 };
