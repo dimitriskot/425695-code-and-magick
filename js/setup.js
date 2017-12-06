@@ -10,27 +10,27 @@ var wizardSetup = document.querySelector('.setup-wizard');
 var wizardCoat = wizardSetup.querySelector('.wizard-coat');
 var wizardEyes = wizardSetup.querySelector('.wizard-eyes');
 var wizardFireball = document.querySelector('.setup-fireball-wrap');
+var similarListElement = document.querySelector('.setup-similar-list');
+var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
-var onPopupEscPress = function (evt) {
-  var activeInput = document.activeElement;
-  if (evt.keyCode === ESC_KEYCODE && userNameInput !== activeInput)  {
+var checkKey = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE && userNameInput !== document.activeElement) {
     closePopup();
   }
 };
 
 var openPopup = function () {
   setup.classList.remove('hidden');
-  document.addEventListener('keydown', onPopupEscPress);
+  setup.querySelector('.setup-similar').classList.remove('hidden');
+  document.addEventListener('keydown', checkKey);
 };
 
 var closePopup = function () {
   setup.classList.add('hidden');
-  document.addEventListener('keydown', onPopupEscPress);
+  document.removeEventListener('keydown', checkKey);
 };
 
-setupOpen.addEventListener('click', function () {
-  openPopup();
-});
+setupOpen.addEventListener('click', openPopup);
 
 setupOpen.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
@@ -38,9 +38,7 @@ setupOpen.addEventListener('keydown', function (evt) {
   }
 });
 
-setupClose.addEventListener('click', function () {
-  closePopup();
-});
+setupClose.addEventListener('click', closePopup);
 
 setupClose.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
@@ -48,29 +46,30 @@ setupClose.addEventListener('keydown', function (evt) {
   }
 });
 
-userNameInput.addEventListener('invalid', function (evt) {
+userNameInput.addEventListener('invalid', function () {
   if (userNameInput.validity.tooShort) {
-    userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов');
-  } else if (userNameInput.validity.tooLong) {
-    userNameInput.setCustomValidity('Имя не должно превышать 25-ти символов');
-  } else if (userNameInput.validity.valueMissing) {
-    userNameInput.setCustomValidity('Обязательное поле');
-  } else {
-    userNameInput.setCustomValidity('');
+    return userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов');
+  }
+  if (userNameInput.validity.tooLong) {
+    return userNameInput.setCustomValidity('Имя не должно превышать 25-ти символов');
+  }
+  if (userNameInput.validity.valueMissing) {
+    return userNameInput.setCustomValidity('Обязательное поле');
+  }
+  if (userNameInput.validity.valid) {
+    return userNameInput.setCustomValidity('');
   }
 });
 
 userNameInput.addEventListener('input', function (evt) {
   var target = evt.target;
-  if (target.value.length < 2) {
-    target.setCustomValidity('Имя должно состоять минимум из 2-х символов');
+  var MIN_LENGTH = 2;
+  if (target.value.length < MIN_LENGTH) {
+    target.setCustomValidity('Имя должно состоять минимум из ' + MIN_LENGTH + '-х символов');
   } else {
     target.setCustomValidity('');
   }
 });
-
-var similarListElement = document.querySelector('.setup-similar-list');
-var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
 var wizards = [];
 var wizardsCount = 4;
@@ -172,5 +171,5 @@ for (var i = 0; i < wizards.length; i++) {
 
 similarListElement.appendChild(fragment);
 
-userDialog.querySelector('.setup-similar').classList.remove('hidden');
+
 
